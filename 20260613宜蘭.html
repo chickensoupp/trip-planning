@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宜蘭半日遊</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a1a; --muted: #6b6b6b; --paper: #faf8f4;
+    --accent: #c8845a; --accent-light: #f2e0d3; --line: #ddd8cf;
+    --green: #4a7c59; --green-light: #e4ede7;
+    --purple: #7c5cbf; --purple-light: #ede8f7;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; line-height: 1.8; }
+
+  header { background: var(--ink); color: white; padding: 48px 32px 40px; text-align: center; }
+  header .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 400; }
+  header h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 5vw, 38px); font-weight: 900; letter-spacing: 2px; line-height: 1.3; }
+  header .subtitle { margin-top: 10px; color: #aaa; font-size: 13px; letter-spacing: 1px; }
+
+  .timeline { max-width: 680px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .segment { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+  .segment-line { width: 2px; background: var(--line); flex: 1; min-height: 28px; }
+  .segment-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; background: var(--paper); padding: 2px 10px; border: 1px solid var(--line); border-radius: 20px; margin: 4px 0; }
+
+  .stop { position: relative; padding: 32px 0 0; }
+  .stop-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .stop-number { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 16px; background: var(--ink); color: white; }
+  .stop-number.accent { background: var(--accent); }
+  .stop-number.green  { background: var(--green); }
+  .stop-number.purple { background: var(--purple); }
+  .stop-meta { padding-top: 4px; }
+  .stop-time { font-size: 12px; color: var(--accent); letter-spacing: 1px; margin-bottom: 2px; font-weight: 500; }
+  .stop-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 600; letter-spacing: 1px; line-height: 1.3; }
+
+  .card { background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .card-body { padding: 20px 22px; }
+  .card-name { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .card-tag { display: inline-block; font-size: 11px; background: var(--accent-light); color: var(--accent); border-radius: 4px; padding: 2px 8px; margin-bottom: 10px; font-weight: 500; }
+  .card-tag.green-tag { background: var(--green-light); color: var(--green); }
+  .card-tag.purple-tag { background: var(--purple-light); color: var(--purple); }
+  .info-row { display: flex; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 5px; align-items: flex-start; }
+  .info-icon { flex-shrink: 0; margin-top: 1px; }
+  .rating { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .star { color: #e8a020; }
+  .note { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .map-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 8px 16px; background: var(--ink); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0.5px; transition: background .15s; }
+  .map-btn:hover { background: #333; }
+  .map-btn.accent-btn { background: var(--accent); }
+  .map-btn.accent-btn:hover { background: #b5714a; }
+  .map-btn.green-btn { background: var(--green); }
+  .map-btn.green-btn:hover { background: #3a6347; }
+  .map-btn.purple-btn { background: var(--purple); }
+  .map-btn.purple-btn:hover { background: #6347a8; }
+
+  /* selector */
+  .selector-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; margin-bottom: 10px; font-weight: 400; }
+  .tab-group { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+  .tab-group-label { font-size: 10px; letter-spacing: 2px; color: #bbb; width: 100%; margin-bottom: -2px; font-weight: 400; }
+
+  .sel-tab { padding: 6px 14px; border: 1.5px solid var(--line); border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: var(--muted); font-family: 'Noto Sans TC', sans-serif; transition: all .15s; font-weight: 400; }
+  .sel-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .sel-tab.active { background: var(--accent); border-color: var(--accent); color: white; font-weight: 500; }
+  .sel-tab.dog:hover { border-color: var(--green); color: var(--green); }
+  .sel-tab.dog.active { background: var(--green); border-color: var(--green); }
+  .sel-tab.indoor:hover { border-color: var(--purple); color: var(--purple); }
+  .sel-tab.indoor.active { background: var(--purple); border-color: var(--purple); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .depart-card { background: var(--ink); color: white; border-radius: 12px; padding: 22px; }
+  .depart-card .card-name { color: white; }
+  .depart-card .info-row { color: #aaa; }
+  .depart-card .note { color: #999; border-color: #333; }
+
+  .distance-badge { display: inline-block; font-size: 11px; background: #f0ede6; color: var(--muted); border-radius: 4px; padding: 1px 7px; margin-left: 6px; vertical-align: middle; font-weight: 400; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); padding: 32px; border-top: 1px solid var(--line); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<header>
+
+  <h1>宜蘭半日遊</h1>
+
+</header>
+
+<div class="timeline">
+
+  <!-- 第一站：寵物咖啡廳 -->
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">1</div>
+      <div class="stop-meta">
+        <div class="stop-time">第一站</div>
+        <div class="stop-title">寵物咖啡廳</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇想去的店家 ↓</p>
+    <div class="tab-group">
+      <span class="tab-group-label">🐱 貓咖啡廳</span>
+      <button class="sel-tab active" onclick="selectPanel(this,'cafe','catfei')">貓咖飛 <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','catgood')">貓咪好宅 <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','munchkin')">短腿貓咖啡 <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','catsday')">Cats' Day <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','cathouse')">貓宅 <span class="distance-badge">宜蘭市 15分</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','catcake')">菓子．貓 <span class="distance-badge">宜蘭市 15分</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'cafe','catfish')">貓魚咖啡 <span class="distance-badge">三星 25分</span></button>
+    </div>
+    <div class="tab-group">
+      <span class="tab-group-label">🐶 狗／混合咖啡廳</span>
+      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','abandoned')">廢柴早午餐 <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','holidaily')">Holi Daily <span class="distance-badge">羅東</span></button>
+      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','dogspace')">DOG.SPACE <span class="distance-badge">礁溪 20分</span></button>
+      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','daoxiang')">道香寵物餐廳 <span class="distance-badge">宜蘭市 15分</span></button>
+    </div>
+
+    <!-- PANELS -->
+    <div class="panel active card" id="cafe-catfei">
+      <div class="card-body">
+        <div class="card-name">貓咖飛 CatCafe</div>
+        <span class="card-tag">🐱 貓咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（589則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 12:00 – 17:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮光華街12-4號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-951-0566</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近路邊停車格，或步行5分鐘至羅東文化工場停車場</div>
+        <div class="note">10隻不同品種的貓，環境乾淨幾乎無貓毛，CP值高。老闆會親自介紹每隻貓的個性，有玩具可互動。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=1555556853973662657" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-catgood">
+      <div class="card-body">
+        <div class="card-name">貓咪好宅</div>
+        <span class="card-tag">🐱 貓咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 5.0 <span style="color:var(--muted);font-weight:300">（351則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 18:30</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮南門路158號</div>
+        <div class="info-row"><span class="info-icon">📞</span>0917-638-733</div>
+        <div class="info-row"><span class="info-icon">🚗</span>南門路路邊停車，數量有限，建議早到</div>
+        <div class="note">Google Maps 滿分評價。貓咪親人、空間乾淨、完全無異味。採計時收費，座位不多，建議先電話確認。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=2460998652431230644" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-munchkin">
+      <div class="card-body">
+        <div class="card-name">短腿貓咖啡</div>
+        <span class="card-tag">🐱 貓咖啡廳 ＋ 簡餐</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（48則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 20:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮安平路118號</div>
+        <div class="info-row"><span class="info-icon">📞</span>0922-814-528</div>
+        <div class="info-row"><span class="info-icon">🚗</span>安平路沿線停車較充裕</div>
+        <div class="note">全部短腿品種（Munchkin），進門需換拖鞋。有咖哩飯等簡餐，開到晚上8點，行程彈性最大。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=14874606046217432323" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-catsday">
+      <div class="card-body">
+        <div class="card-name">Cats' Day</div>
+        <span class="card-tag">🐱 貓咖啡廳 ＋ 住宿</span>
+        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（2,343則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 16:00 – 18:00（注意！週六較晚開）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公正街32號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-955-1766</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近路邊停車或夜市周邊停車場</div>
+        <div class="note">羅東最知名的貓咖啡廳，評論數最多。每人至少點一杯飲料，限時90分鐘。⚠️ 週六下午4點才開，若行程較早須注意，可安排在其他景點後再來。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=2681946673327534935" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-cathouse">
+      <div class="card-body">
+        <div class="card-name">貓宅｜甜點・咖啡・輕食</div>
+        <span class="card-tag">🐱 貓咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（367則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 19:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市農權二路527號（宜蘭市，距羅東約15分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>0958-647-649</div>
+        <div class="info-row"><span class="info-icon">🚗</span>門口附近有停車空間</div>
+        <div class="note">15隻以上的貓，另有待認養的貓可互動。千層蛋糕很推，最低消費250元。空間寬敞舒適，店主用心，週末較熱鬧建議早點去。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=9808213892268474747" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-catcake">
+      <div class="card-body">
+        <div class="card-name">菓子．貓／複合式咖啡廳</div>
+        <span class="card-tag">🐱 貓咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（220則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 17:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市三清路84號（宜蘭市，距羅東約15分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-936-5148</div>
+        <div class="info-row"><span class="info-icon">🚗</span>門口有停車空間，評論提及停車方便</div>
+        <div class="note">店主是專業廚師出身，食物品質遠超一般貓咖啡廳水準。蜜蜂是自家養，蜂蜜限量供應。評論說連帶自己的貓來也很愉快，環境植栽多、很放鬆。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=14781714396765159075" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-catfish">
+      <div class="card-body">
+        <div class="card-name">貓魚咖啡下午茶</div>
+        <span class="card-tag">🐱🐶 貓狗寵物餐廳</span>
+        <div class="rating"><span class="star">★</span> 5.0 <span style="color:var(--muted);font-weight:300">（515則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 13:30 – 18:00（需預約）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣三星鄉行健溪一路一巷76號（三星，距羅東約25分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>0905-549-799</div>
+        <div class="info-row"><span class="info-icon">🚗</span>鄉村地區，門口有自家停車場</div>
+        <div class="note">超高評分的田園風寵物下午茶，有貓有狗。每人250元含無限花茶咖啡、可體驗擂茶製作。食物精緻、環境清幽。⚠️ 必須提前預約，不接受現場候位。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=13878059127978786812" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-abandoned">
+      <div class="card-body">
+        <div class="card-name">廢柴早午餐（寵物友善）</div>
+        <span class="card-tag green-tag">🐶 柴犬咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（203則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 08:00 – 17:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮興東南路123號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-955-6517</div>
+        <div class="info-row"><span class="info-icon">🚗</span>門口有停車空間，附近住宅街道好停</div>
+        <div class="note">店內有超親人柴犬，評論說會主動翻肚子讓客人摸。早午餐菜單豐富，下午也有供應輕食飲品。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=4392488385683788956" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-holidaily">
+      <div class="card-body">
+        <div class="card-name">Holi Daily</div>
+        <span class="card-tag green-tag">🐶 狗咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.8 <span style="color:var(--muted);font-weight:300">（129則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 10:00 – 17:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公園路88號</div>
+        <div class="info-row"><span class="info-icon">📞</span>0958-462-866</div>
+        <div class="info-row"><span class="info-icon">🚗</span>公園路停車，離夜市近好找位</div>
+        <div class="note">設計感強，氣氛好拍照。手沖咖啡與氣泡飲都有好評，免費泡芙很受歡迎。緊鄰羅東夜市。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=7403968655563462237" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-dogspace">
+      <div class="card-body">
+        <div class="card-name">寵物空間 DOG.SPACE</div>
+        <span class="card-tag green-tag">🐱🐶 貓狗混合咖啡廳</span>
+        <div class="rating"><span class="star">★</span> 4.8 <span style="color:var(--muted);font-weight:300">（714則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 19:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣礁溪鄉大圳路19-8號（礁溪，距羅東約20分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-988-5210</div>
+        <div class="info-row"><span class="info-icon">🚗</span>主幹道旁，門口有停車空間</div>
+        <div class="note">貓狗都有，也歡迎帶自己的寵物來。熔岩巧克力蛋糕好評。評論說老闆很隨和，甜點手工製作很有誠意。可順道逛礁溪溫泉區。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=5242671527804969491" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="cafe-daoxiang">
+      <div class="card-body">
+        <div class="card-name">道香寵物餐廳</div>
+        <span class="card-tag green-tag">🐶🦜 鬆獅犬・松鼠・鸚鵡</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（438則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 10:00 – 17:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市清華一路427號（宜蘭市，距羅東約15分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>0966-224-411</div>
+        <div class="info-row"><span class="info-icon">🚗</span>鄉村道路，門口有停車空間</div>
+        <div class="note">動物陣容最多元：鬆獅犬Oppa超親人、另有變色龍、烏龜、鸚鵡。刺身新鮮，老闆很健談。下午去品項可能較少，建議早點前往。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=3681706584558699534" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+  </div><!-- /.stop -->
+
+  <div class="segment"><div class="segment-line"></div><div class="segment-label">短距離移動</div><div class="segment-line"></div></div>
+
+  <!-- 第三站：下雨天室內景點 -->
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number purple">2</div>
+      <div class="stop-meta">
+        <div class="stop-time">第二站</div>
+        <div class="stop-title">下午場活動</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇想去的電影院 ↓</p>
+    <div class="tab-group">
+      <span class="tab-group-label">🌧 雨天首選・16:00 後適合</span>
+      <button class="sel-tab indoor active" onclick="selectPanel(this,'spot','luna')">Luna 數位影城 <span class="distance-badge">宜蘭市 15分</span></button>
+    </div>
+    <div class="tab-group">
+      <span class="tab-group-label">☀️ 沒下雨的話</span>
+      <button class="sel-tab" onclick="selectPanel(this,'spot','park')">羅東運動公園 <span class="distance-badge">羅東 5分</span></button>
+      <button class="sel-tab" onclick="selectPanel(this,'spot','beach')">新水沙灘 <span class="distance-badge">五結 20分</span></button>
+    </div>
+
+    <div class="panel active card" id="spot-luna">
+      <div class="card-body">
+        <div class="card-name">Luna 數位影城</div>
+        <span class="card-tag purple-tag">🎬 電影院</span>
+        <div class="rating"><span class="star">★</span> 4.3 <span style="color:var(--muted);font-weight:300">（2,679則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 09:30 – 01:00（隔天）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市民權路二段38巷2號3樓（Luna 百貨內，距羅東約15分鐘）</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-932-8833</div>
+        <div class="info-row"><span class="info-icon">🚗</span>Luna 百貨地下停車場，空間充裕</div>
+        <div class="note">設備較新，場次多，開到深夜，16:00 後下午場選擇最豐富。⚠️ 出發前先查好片表與場次，確認有想看的再排進行程。</div>
+        <a class="map-btn purple-btn" href="https://maps.google.com/?cid=11944699593702441793" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+        <a class="map-btn" href="https://www.luna-cinema.com.tw" target="_blank" style="margin-left:8px">查片表</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="spot-park">
+      <div class="card-body">
+        <div class="card-name">羅東運動公園</div>
+        <span class="card-tag green-tag">🌿 湖畔散步</span>
+        <div class="rating"><span class="star">★</span> 4.6 <span style="color:var(--muted);font-weight:300">（10,180則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>全天開放（24小時）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公正路666號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-954-1216</div>
+        <div class="info-row"><span class="info-icon">🚗</span>公園附設停車場，空間充裕</div>
+        <div class="note">傍晚繞湖一圈放鬆，光線柔和很好拍。⚠️ 下雨天不建議，改選上方室內景點較佳。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=15682105093525430683" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="spot-beach">
+      <div class="card-body">
+        <div class="card-name">新水沙灘</div>
+        <span class="card-tag green-tag">🌊 太平洋黑沙灘</span>
+        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（31則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>全天開放</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣五結鄉季新村吉水路41-2號附近</div>
+        <div class="info-row"><span class="info-icon">🚗</span>沙灘旁有停車空間</div>
+        <div class="note">黑沙灘、正對太平洋，人少清幽。⚠️ 下雨天不建議，改選上方室內景點較佳。無廁所，記得帶拖鞋。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?cid=4034540517567407197" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+  </div><!-- /.stop -->
+
+  <div class="segment"><div class="segment-line"></div><div class="segment-label">短距離回羅東</div><div class="segment-line"></div></div>
+
+  <!-- 晚餐 -->
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">3</div>
+      <div class="stop-meta">
+        <div class="stop-time">第三站</div>
+        <div class="stop-title">晚餐／餐酒館</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇想去的店家 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'dinner','no8')">8號餐酒館</button>
+      <button class="sel-tab" onclick="selectPanel(this,'dinner','zuicha')">醉茶閣</button>
+      <button class="sel-tab" onclick="selectPanel(this,'dinner','tielou')">鐵樓居酒Bar</button>
+      <button class="sel-tab" onclick="selectPanel(this,'dinner','yinlang')">飲廊</button>
+    </div>
+
+    <div class="panel active card" id="dinner-no8">
+      <div class="card-body">
+        <div class="card-name">8號餐酒館</div>
+        <span class="card-tag">🍷 餐酒館・法式甜點</span>
+        <div class="rating"><span class="star">★</span> 4.8 <span style="color:var(--muted);font-weight:300">（20則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>每天 17:00 – 24:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮天津路88巷8號</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近民生市場停車場或路邊</div>
+        <div class="note">Le Cordon Bleu 訓練的糕點師主理，葡萄酒、調酒搭配法式甜點與鹹派。藏在巷弄裡氣氛很好，老闆親切健談，適合兩人慢慢坐。評論說有台北水準卻在羅東。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=5321566432524554551" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="dinner-zuicha">
+      <div class="card-body">
+        <div class="card-name">醉茶閣</div>
+        <span class="card-tag">🍵 茶酒館・中式風格</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（51則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 19:00 – 01:30</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮中正路185-1號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-955-9823</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近民生大樓停車場（週末40元/小時）</div>
+        <div class="note">中式茶館與調酒結合的獨特空間，透過小巷進入有穿越感。調酒酒感與甜度平衡好，有滷味小菜可配酒。老闆話很多很好聊，兩人坐著聊天的理想場所。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=3530892462127047947" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="dinner-tielou">
+      <div class="card-body">
+        <div class="card-name">鐵樓居酒Bar</div>
+        <span class="card-tag">🍢 精緻快炒・燒烤餐酒館</span>
+        <div class="rating"><span class="star">★</span> 4.4 <span style="color:var(--muted);font-weight:300">（510則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 18:00 – 02:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮車站東路220號</div>
+        <div class="info-row"><span class="info-icon">📞</span>0971-106-866</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近路邊停車</div>
+        <div class="note">調酒、精緻快炒、燒烤三合一，開到凌晨2點是最大優點。啤酒比同類型酒吧便宜，還有吃到飽調酒方案。⚠️ 週末人多出餐較慢，建議避開熱門的牛肉類品項。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=3493866116474421077" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+    <div class="panel card" id="dinner-yinlang">
+      <div class="card-body">
+        <div class="card-name">飲廊</div>
+        <span class="card-tag">🍺 精釀啤酒・創意料理</span>
+        <div class="rating"><span class="star">★</span> 4.6 <span style="color:var(--muted);font-weight:300">（1,419則）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 21:30 ⚠️ 較早打烊</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公正街56號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-955-0557</div>
+        <div class="info-row"><span class="info-icon">🚗</span>附近路邊停車</div>
+        <div class="note">精釀啤酒為主，燉飯與創意料理口碑不錯，金桔醬沙拉是特色。調酒視覺漂亮評價很高。⚠️ 21:30 打烊，若預計 20:00 到可以，但時間不多，建議提早或改選其他幾間。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=5262754764386451946" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /.timeline -->
+
+<footer>週六宜蘭半日遊 · 預估行程 12:00 – 22:00+</footer>
+
+<script>
+  function selectPanel(btn, group, id) {
+    document.querySelectorAll(`[onclick*="'${group}'"]`).forEach(t => t.classList.remove('active'));
+    document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`${group}-${id}`).classList.add('active');
+  }
+</script>
+</body>
+</html>
