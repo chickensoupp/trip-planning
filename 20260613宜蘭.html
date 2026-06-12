@@ -105,19 +105,10 @@
 
     <p class="selector-label">選擇想去的店家 ↓</p>
     <div class="tab-group">
-      <span class="tab-group-label">🐱 貓咖啡廳</span>
+      <span class="tab-group-label">🐱 主選</span>
       <button class="sel-tab active" onclick="selectPanel(this,'cafe','catfei')">貓咖飛 <span class="distance-badge">羅東</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'cafe','catgood')">貓咪好宅 <span class="distance-badge">羅東</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'cafe','munchkin')">短腿貓咖啡 <span class="distance-badge">羅東</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'cafe','cathouse')">貓宅 <span class="distance-badge">宜蘭市 15分</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'cafe','catcake')">菓子．貓 <span class="distance-badge">宜蘭市 15分</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'cafe','catfish')">貓魚咖啡 <span class="distance-badge">三星 25分</span></button>
-    </div>
-    <div class="tab-group">
-      <span class="tab-group-label">🐶 狗／混合咖啡廳</span>
-      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','abandoned')">廢柴早午餐 <span class="distance-badge">羅東</span></button>
-      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','holidaily')">Holi Daily <span class="distance-badge">羅東</span></button>
-      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','dogspace')">DOG.SPACE <span class="distance-badge">礁溪 20分</span></button>
+      <span class="tab-group-label" style="margin-top:6px">🐾 備選</span>
+      <button class="sel-tab dog" onclick="selectPanel(this,'cafe','dogspace')">寵物空間 DOG.SPACE <span class="distance-badge">礁溪 20分</span></button>
       <button class="sel-tab dog" onclick="selectPanel(this,'cafe','daoxiang')">道香寵物餐廳 <span class="distance-badge">宜蘭市 15分</span></button>
     </div>
 
@@ -133,104 +124,6 @@
         <div class="info-row"><span class="info-icon">🚗</span>附近路邊停車格，或步行5分鐘至羅東文化工場停車場</div>
         <div class="note">10隻不同品種的貓，環境乾淨幾乎無貓毛，CP值高。老闆會親自介紹每隻貓的個性，有玩具可互動。</div>
         <a class="map-btn accent-btn" href="https://maps.google.com/?cid=1555556853973662657" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-catgood">
-      <div class="card-body">
-        <div class="card-name">貓咪好宅</div>
-        <span class="card-tag">🐱 貓咖啡廳</span>
-        <div class="rating"><span class="star">★</span> 5.0 <span style="color:var(--muted);font-weight:300">（351則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 18:30</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮南門路158號</div>
-        <div class="info-row"><span class="info-icon">📞</span>0917-638-733</div>
-        <div class="info-row"><span class="info-icon">🚗</span>南門路路邊停車，數量有限，建議早到</div>
-        <div class="note">Google Maps 滿分評價。貓咪親人、空間乾淨、完全無異味。採計時收費，座位不多，建議先電話確認。</div>
-        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=2460998652431230644" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-munchkin">
-      <div class="card-body">
-        <div class="card-name">短腿貓咖啡</div>
-        <span class="card-tag">🐱 貓咖啡廳 ＋ 簡餐</span>
-        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（48則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 20:00</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮安平路118號</div>
-        <div class="info-row"><span class="info-icon">📞</span>0922-814-528</div>
-        <div class="info-row"><span class="info-icon">🚗</span>安平路沿線停車較充裕</div>
-        <div class="note">全部短腿品種（Munchkin），進門需換拖鞋。有咖哩飯等簡餐，開到晚上8點，行程彈性最大。</div>
-        <a class="map-btn accent-btn" href="https://maps.google.com/?cid=14874606046217432323" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-cathouse">
-      <div class="card-body">
-        <div class="card-name">貓宅｜甜點・咖啡・輕食</div>
-        <span class="card-tag">🐱 貓咖啡廳</span>
-        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（367則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 19:00</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市擺厘里女中路二段527號</div>
-        <div class="info-row"><span class="info-icon">📞</span>0958-647-649</div>
-        <div class="info-row"><span class="info-icon">🚗</span>門口附近有停車空間</div>
-        <div class="note">15隻以上的貓，另有待認養的貓可互動。千層蛋糕很推，最低消費250元。空間寬敞舒適，店主用心，週末較熱鬧建議早點去。</div>
-        <a class="map-btn accent-btn" href="https://maps.app.goo.gl/QutXvzHc53xymLqK9" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-catcake">
-      <div class="card-body">
-        <div class="card-name">菓子．貓／複合式咖啡廳</div>
-        <span class="card-tag">🐱 貓咖啡廳</span>
-        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（220則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 17:00</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市負郭里三清路84號</div>
-        <div class="info-row"><span class="info-icon">📞</span>03-936-5148</div>
-        <div class="info-row"><span class="info-icon">🚗</span>門口有停車空間，評論提及停車方便</div>
-        <div class="note">店主是專業廚師出身，食物品質遠超一般貓咖啡廳水準。蜜蜂是自家養，蜂蜜限量供應。評論說連帶自己的貓來也很愉快，環境植栽多、很放鬆。</div>
-        <a class="map-btn accent-btn" href="https://maps.app.goo.gl/nbDswFv4ZtiZnH3n7" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-catfish">
-      <div class="card-body">
-        <div class="card-name">貓魚咖啡下午茶</div>
-        <span class="card-tag">🐱🐶 貓狗寵物餐廳</span>
-        <div class="rating"><span class="star">★</span> 5.0 <span style="color:var(--muted);font-weight:300">（515則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 13:30 – 18:00（需預約）</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣三星鄉行健村行健溪一路一段76號</div>
-        <div class="info-row"><span class="info-icon">📞</span>0905-549-799</div>
-        <div class="info-row"><span class="info-icon">🚗</span>鄉村地區，門口有自家停車場</div>
-        <div class="note">超高評分的田園風寵物下午茶，有貓有狗。每人250元含無限花茶咖啡、可體驗擂茶製作。食物精緻、環境清幽。⚠️ 必須提前預約，不接受現場候位。</div>
-        <a class="map-btn accent-btn" href="https://maps.app.goo.gl/zHD2NTcwY5g4HECg6" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-abandoned">
-      <div class="card-body">
-        <div class="card-name">廢柴早午餐（寵物友善）</div>
-        <span class="card-tag green-tag">🐶 柴犬咖啡廳</span>
-        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（203則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 08:00 – 17:00</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮興東南路123號</div>
-        <div class="info-row"><span class="info-icon">📞</span>03-955-6517</div>
-        <div class="info-row"><span class="info-icon">🚗</span>門口有停車空間，附近住宅街道好停</div>
-        <div class="note">店內有超親人柴犬，評論說會主動翻肚子讓客人摸。早午餐菜單豐富，下午也有供應輕食飲品。</div>
-        <a class="map-btn green-btn" href="https://maps.google.com/?cid=4392488385683788956" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="cafe-holidaily">
-      <div class="card-body">
-        <div class="card-name">Holi Daily</div>
-        <span class="card-tag green-tag">🐶 狗咖啡廳</span>
-        <div class="rating"><span class="star">★</span> 4.8 <span style="color:var(--muted);font-weight:300">（129則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 10:00 – 17:00</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公園路88號</div>
-        <div class="info-row"><span class="info-icon">📞</span>0958-462-866</div>
-        <div class="info-row"><span class="info-icon">🚗</span>公園路停車，離夜市近好找位</div>
-        <div class="note">設計感強，氣氛好拍照。手沖咖啡與氣泡飲都有好評，免費泡芙很受歡迎。緊鄰羅東夜市。</div>
-        <a class="map-btn green-btn" href="https://maps.google.com/?cid=7403968655563462237" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
       </div>
     </div>
 
@@ -272,60 +165,39 @@
       <div class="stop-number purple">2</div>
       <div class="stop-meta">
         <div class="stop-time">第二站</div>
-        <div class="stop-title">下午場活動</div>
+        <div class="stop-title">書店</div>
       </div>
     </div>
 
-    <p class="selector-label">選擇想去的電影院 ↓</p>
+    <p class="selector-label">選擇想去的書店 ↓</p>
     <div class="tab-group">
-      <span class="tab-group-label">🌧 雨天首選・16:00 後適合</span>
-      <button class="sel-tab indoor active" onclick="selectPanel(this,'spot','luna')">Luna 數位影城 <span class="distance-badge">宜蘭市 15分</span></button>
-    </div>
-    <div class="tab-group">
-      <span class="tab-group-label">☀️ 沒下雨的話</span>
-      <button class="sel-tab" onclick="selectPanel(this,'spot','park')">羅東運動公園 <span class="distance-badge">羅東 5分</span></button>
-      <button class="sel-tab" onclick="selectPanel(this,'spot','beach')">新水沙灘 <span class="distance-badge">五結 20分</span></button>
+      <button class="sel-tab indoor active" onclick="selectPanel(this,'spot','ekimotoya')">驛本屋書店</button>
+      <button class="sel-tab indoor" onclick="selectPanel(this,'spot','moku')">moku 旅人書店</button>
     </div>
 
-    <div class="panel active card" id="spot-luna">
+    <div class="panel active card" id="spot-ekimotoya">
       <div class="card-body">
-        <div class="card-name">Luna 數位影城</div>
-        <span class="card-tag purple-tag">🎬 電影院</span>
-        <div class="rating"><span class="star">★</span> 4.3 <span style="color:var(--muted);font-weight:300">（2,679則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>週六 09:30 – 01:00（隔天）</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣宜蘭市民權路二段38巷2號3樓</div>
-        <div class="info-row"><span class="info-icon">📞</span>03-932-8833</div>
-        <div class="info-row"><span class="info-icon">🚗</span>Luna 百貨地下停車場，空間充裕</div>
-        <div class="note">設備較新，場次多，開到深夜，16:00 後下午場選擇最豐富。⚠️ 出發前先查好片表與場次，確認有想看的再排進行程。</div>
-        <a class="map-btn purple-btn" href="https://maps.app.goo.gl/uwSBp8TjD3mZvdzw9" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-        <a class="map-btn" href="https://www.lunacinemax.com.tw/showtime.aspx" target="_blank" style="margin-left:8px">查片表</a>
+        <div class="card-name">駅本屋書店</div>
+        <span class="card-tag purple-tag">📚 選書・溫泉足浴</span>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 10:00 – 20:00（週二、三公休）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣礁溪鄉德陽街11巷2號（礁溪車站旁）</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-987-3805</div>
+        <div class="info-row"><span class="info-icon">🚗</span>礁溪車站附近停車場，或步行至書店</div>
+        <div class="note">礁溪車站旁的日式選書空間，選書以日本文化、建築、藝術、浮世繪為主題。最大亮點是店內設有溫泉足浴區，可以一邊泡腳一邊看書，體驗礁溪特有的慢活氛圍。</div>
+        <a class="map-btn purple-btn" href="https://maps.app.goo.gl/ZC3yT989q45BzNEg9" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
       </div>
     </div>
 
-    <div class="panel card" id="spot-park">
+    <div class="panel card" id="spot-moku">
       <div class="card-body">
-        <div class="card-name">羅東運動公園</div>
-        <span class="card-tag green-tag">🌿 湖畔散步</span>
-        <div class="rating"><span class="star">★</span> 4.6 <span style="color:var(--muted);font-weight:300">（10,180則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>全天開放（24小時）</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮公正路666號</div>
-        <div class="info-row"><span class="info-icon">📞</span>03-954-1216</div>
-        <div class="info-row"><span class="info-icon">🚗</span>公園附設停車場，空間充裕</div>
-        <div class="note">傍晚繞湖一圈放鬆，光線柔和很好拍。⚠️ 下雨天不建議，改選上方室內景點較佳。</div>
-        <a class="map-btn green-btn" href="https://maps.google.com/?cid=15682105093525430683" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
-      </div>
-    </div>
-
-    <div class="panel card" id="spot-beach">
-      <div class="card-body">
-        <div class="card-name">新水沙灘</div>
-        <span class="card-tag green-tag">🌊 太平洋黑沙灘</span>
-        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（31則）</span></div>
-        <div class="info-row"><span class="info-icon">🕐</span>全天開放</div>
-        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣五結鄉季新村吉水路41-2號附近</div>
-        <div class="info-row"><span class="info-icon">🚗</span>沙灘旁有停車空間</div>
-        <div class="note">黑沙灘、正對太平洋，人少清幽。⚠️ 下雨天不建議，改選上方室內景點較佳。無廁所，記得帶拖鞋。</div>
-        <a class="map-btn green-btn" href="https://maps.google.com/?cid=4034540517567407197" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
+        <div class="card-name">Moku 旅人書店</div>
+        <span class="card-tag purple-tag">📚 獨立書店・藝文空間</span>
+        <div class="info-row"><span class="info-icon">🕐</span>週六 11:00 – 18:00（週二、三公休）</div>
+        <div class="info-row"><span class="info-icon">📍</span>宜蘭縣羅東鎮文化街55號</div>
+        <div class="info-row"><span class="info-icon">📞</span>03-932-5957</div>
+        <div class="info-row"><span class="info-icon">🚗</span>文化街附近路邊停車</div>
+        <div class="note">座落於1927年日式歷史建築（羅東成功國小舊校長宿舍），選書以旅遊、文學、地方文化為主，不定期舉辦講座與展覽。木造空間氣氛靜謐，是羅東最具文青氣質的獨立書店。</div>
+        <a class="map-btn purple-btn" href="https://maps.app.goo.gl/vHE3BSe565bG6wDw8" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Google Maps 導航</a>
       </div>
     </div>
 

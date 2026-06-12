@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吉伊卡哇日本之旅 · 5天4夜</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a1a; --muted: #6b6b6b; --paper: #faf8f4;
+    --accent: #c8845a; --accent-light: #f2e0d3; --line: #ddd8cf;
+    --green: #4a7c59; --green-light: #e4ede7;
+    --purple: #7c5cbf; --purple-light: #ede8f7;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; line-height: 1.8; }
+
+  header { background: var(--ink); color: white; padding: 48px 32px 40px; text-align: center; }
+  header .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 400; }
+  header h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 5vw, 38px); font-weight: 900; letter-spacing: 2px; line-height: 1.3; }
+  header .subtitle { margin-top: 10px; color: #aaa; font-size: 13px; letter-spacing: 1px; }
+
+  .timeline { max-width: 680px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .segment { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+  .segment-line { width: 2px; background: var(--line); flex: 1; min-height: 28px; }
+  .segment-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; background: var(--paper); padding: 2px 10px; border: 1px solid var(--line); border-radius: 20px; margin: 4px 0; }
+
+  .stop { position: relative; padding: 32px 0 0; }
+  .stop-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .stop-number { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 16px; background: var(--ink); color: white; }
+  .stop-number.accent { background: var(--accent); }
+  .stop-number.green  { background: var(--green); }
+  .stop-number.purple { background: var(--purple); }
+  .stop-meta { padding-top: 4px; }
+  .stop-time { font-size: 12px; color: var(--accent); letter-spacing: 1px; margin-bottom: 2px; font-weight: 500; }
+  .stop-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 600; letter-spacing: 1px; line-height: 1.3; }
+
+  .card { background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .card-body { padding: 20px 22px; }
+  .card-name { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .card-tag { display: inline-block; font-size: 11px; background: var(--accent-light); color: var(--accent); border-radius: 4px; padding: 2px 8px; margin-bottom: 10px; font-weight: 500; }
+  .card-tag.green-tag { background: var(--green-light); color: var(--green); }
+  .card-tag.purple-tag { background: var(--purple-light); color: var(--purple); }
+  .info-row { display: flex; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 5px; align-items: flex-start; }
+  .info-icon { flex-shrink: 0; margin-top: 1px; }
+  .rating { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .star { color: #e8a020; }
+  .note { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .map-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 8px 16px; background: var(--ink); color: white; border-radius: 6px; font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0.5px; transition: background .15s; }
+  .map-btn:hover { background: #333; }
+  .map-btn.accent-btn { background: var(--accent); }
+  .map-btn.accent-btn:hover { background: #b5714a; }
+  .map-btn.green-btn { background: var(--green); }
+  .map-btn.green-btn:hover { background: #3a6347; }
+  .map-btn.purple-btn { background: var(--purple); }
+  .map-btn.purple-btn:hover { background: #6347a8; }
+
+  /* selector */
+  .selector-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; margin-bottom: 10px; font-weight: 400; }
+  .tab-group { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+  .tab-group-label { font-size: 10px; letter-spacing: 2px; color: #bbb; width: 100%; margin-bottom: -2px; font-weight: 400; }
+  .sel-tab { padding: 6px 14px; border: 1.5px solid var(--line); border-radius: 20px; font-size: 12px; cursor: pointer; background: white; color: var(--muted); font-family: 'Noto Sans TC', sans-serif; transition: all .15s; font-weight: 400; }
+  .sel-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .sel-tab.active { background: var(--accent); border-color: var(--accent); color: white; font-weight: 500; }
+  .sel-tab.green:hover { border-color: var(--green); color: var(--green); }
+  .sel-tab.green.active { background: var(--green); border-color: var(--green); }
+  .sel-tab.purple:hover { border-color: var(--purple); color: var(--purple); }
+  .sel-tab.purple.active { background: var(--purple); border-color: var(--purple); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .depart-card { background: var(--ink); color: white; border-radius: 12px; padding: 22px; }
+  .depart-card .card-name { color: white; }
+  .depart-card .info-row { color: #aaa; }
+  .depart-card .note { color: #999; border-color: #333; }
+
+  .distance-badge { display: inline-block; font-size: 11px; background: #f0ede6; color: var(--muted); border-radius: 4px; padding: 1px 7px; margin-left: 6px; vertical-align: middle; font-weight: 400; }
+
+  /* Day Divider */
+  .day-marker { display: flex; flex-direction: column; align-items: center; padding: 40px 0 8px; }
+  .day-line { width: 2px; background: var(--line); min-height: 24px; }
+  .day-badge { font-family: 'Noto Serif TC', serif; font-size: 12px; font-weight: 900; color: white; background: var(--ink); border-radius: 20px; padding: 6px 20px; letter-spacing: 3px; margin: 8px 0; }
+
+  /* Chiikawa highlight card */
+  .chiikawa-card { background: white; border: 2px solid var(--purple); border-radius: 12px; overflow: hidden; }
+  .chiikawa-card .card-body { padding: 20px 22px; }
+  .chiikawa-banner { background: var(--purple); color: white; font-size: 11px; letter-spacing: 2px; font-weight: 500; text-align: center; padding: 6px; }
+
+  footer { text-align: center; font-size: 12px; color: var(--muted); padding: 32px; border-top: 1px solid var(--line); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Japan Trip · 5天4夜</div>
+  <h1>吉伊卡哇日本之旅</h1>
+  <div class="subtitle">東京為主 · 原宿聖地巡禮 · ちいかわらんど必訪</div>
+</header>
+
+<div class="timeline">
+
+
+<!-- ══════════════════════════════════════════════
+  DAY 1 — 抵達東京
+══════════════════════════════════════════════ -->
+<div class="day-marker">
+  <div class="day-line"></div>
+  <div class="day-badge">DAY 1 · 抵達東京</div>
+  <div class="day-line"></div>
+</div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number">1</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 1 · 抵達</div>
+        <div class="stop-title">成田空港 / 羽田空港</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇入境機場 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'airport','narita')">成田空港 NRT</button>
+      <button class="sel-tab"        onclick="selectPanel(this,'airport','haneda')">羽田空港 HND</button>
+    </div>
+
+    <div class="panel active depart-card" id="airport-narita">
+      <div class="card-name">成田国際空港</div>
+      <div class="info-row"><span class="info-icon">📍</span>千葉県成田市三里塚御料牧場1-1</div>
+      <div class="info-row"><span class="info-icon">🚆</span>成田エクスプレス (N'EX) 至新宿 約90分 ¥3,070 ／京成スカイライナー 至上野 約41分 ¥2,570</div>
+      <div class="note">建議購買 Suica 或 PASMO 交通卡，方便全程搭乘電車。成田 → 新宿 也可搭利木津巴士約 90 分鐘，行李多時較輕鬆。</div>
+      <a class="map-btn" href="https://maps.google.com/?q=成田国際空港" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Google Maps 導航
+      </a>
+    </div>
+
+    <div class="panel depart-card" id="airport-haneda">
+      <div class="card-name">羽田空港（東京国際空港）</div>
+      <div class="info-row"><span class="info-icon">📍</span>東京都大田区羽田空港3丁目3-2</div>
+      <div class="info-row"><span class="info-icon">🚆</span>京急電鉄 至品川 約13分 ¥310 ／東京モノレール 至浜松町 約18分 ¥500</div>
+      <div class="note">羽田距市區更近，交通費較省。品川轉 JR 山手線可快速到新宿（約20分）。深夜航班入境也很方便。</div>
+      <a class="map-btn" href="https://maps.google.com/?q=羽田空港国際線ターミナル" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Google Maps 導航
+      </a>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">電車 / 巴士 60–90 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number">2</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 1 · 傍晚</div>
+        <div class="stop-title">新宿・飯店 Check-in</div>
+      </div>
+    </div>
+
+    <div class="depart-card">
+      <div class="card-name">推薦住宿區域：新宿 or 原宿・表参道</div>
+      <div class="info-row"><span class="info-icon">📍</span>新宿駅 / 原宿駅 周辺</div>
+      <div class="info-row"><span class="info-icon">💡</span>住新宿：交通最方便，購物商圈大；住原宿周辺：隔天去ちいかわらんど步行即達</div>
+      <div class="note">推薦飯店區域：新宿三丁目 / 代々木 / 原宿・明治神宮前。Check-in 後可附近輕鬆散步，適應時差。</div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">步行 5–10 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">3</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 1 · 晚上 18:30</div>
+        <div class="stop-title">Day 1 晚餐</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇晚餐地點 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'d1dinner','omoide')">思い出横丁 <span class="distance-badge">新宿西口</span></button>
+      <button class="sel-tab"        onclick="selectPanel(this,'d1dinner','isetan')">伊勢丹 B1 <span class="distance-badge">新宿三丁目</span></button>
+    </div>
+
+    <div class="panel active card" id="d1dinner-omoide">
+      <div class="card-body">
+        <div class="card-name">新宿 思い出横丁</div>
+        <span class="card-tag">居酒屋横丁</span>
+        <div class="rating"><span class="star">★</span> 4.3 <span style="color:var(--muted);font-weight:300">（昭和風情老街）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>各店不一，多數 12:00–00:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都新宿区西新宿1丁目2（新宿駅西口旁）</div>
+        <div class="note">二戰後留存的懷舊小吃街，滿街烤串、拉麵、關東煮。空間狹小、煙霧瀰漫，充滿昭和感。適合一邊吃串燒一邊感受東京老街氛圍。人均 ¥2,000–3,500。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=新宿思い出横丁" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="d1dinner-isetan">
+      <div class="card-body">
+        <div class="card-name">伊勢丹新宿本館 B1–B2</div>
+        <span class="card-tag">百貨美食街</span>
+        <div class="info-row"><span class="info-icon">🕐</span>10:30–20:00（各店略有差異）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都新宿区新宿3-14-1</div>
+        <div class="note">B1 為精緻食品樓層，各式壽司、便當、甜點齊全；B2 為餐廳街。可直接在此解決晚餐，同時順逛 Isetan 各樓層。人均 ¥1,500–3,000。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=伊勢丹新宿店" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ══════════════════════════════════════════════
+  DAY 2 — 原宿 · 吉伊卡哇聖地巡禮
+══════════════════════════════════════════════ -->
+<div class="day-marker">
+  <div class="day-line"></div>
+  <div class="day-badge">DAY 2 · 原宿聖地巡禮</div>
+  <div class="day-line"></div>
+</div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number green">4</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 2 · 09:00</div>
+        <div class="stop-title">明治神宮</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">明治神宮</div>
+        <span class="card-tag green-tag">神社・自然散步</span>
+        <div class="rating"><span class="star">★</span> 4.6 <span style="color:var(--muted);font-weight:300">（世界知名神社）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>日出至日落（冬 6:40–16:20 / 夏 5:00–18:00，依季節調整）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区代々木神園町1-1</div>
+        <div class="info-row"><span class="info-icon">🚆</span>JR 山手線 原宿駅 徒步 1 分鐘</div>
+        <div class="note">早上人少、清幽，推薦作為一天的開始。可在境內求籤、寫繪馬，感受日本傳統文化。從正門走到本殿約 10–15 分鐘。建議留 1 小時。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?q=明治神宮" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">步行 10 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number purple">5</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 2 · 10:30 ⭐ 重點必訪</div>
+        <div class="stop-title">ちいかわらんど 原宿</div>
+      </div>
+    </div>
+
+    <div class="chiikawa-card">
+      <div class="chiikawa-banner">✦ 吉伊卡哇樂園 · 旅程核心 ✦</div>
+      <div class="card-body">
+        <div class="card-name">ちいかわらんど 原宿店</div>
+        <span class="card-tag purple-tag">主題旗艦店・必去</span>
+        <div class="rating"><span class="star">★</span> 4.9 <span style="color:var(--muted);font-weight:300">（吉伊卡哇迷聖地）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–20:00（建議 10:00 前到場排隊，假日人潮極多）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区神宮前 原宿周辺（出發前請至官網確認最新地址）</div>
+        <div class="info-row"><span class="info-icon">🚆</span>JR 山手線 原宿駅 / 東京メトロ 明治神宮前駅 步行約 5 分鐘</div>
+        <div class="info-row"><span class="info-icon">💡</span>店內可能採整理券制，請關注官方 Twitter / X 公告</div>
+        <div class="note">吉伊卡哇旗艦主題店，有豐富的限定商品、打卡佈景及獨家扭蛋。建議預留 1.5–2 小時慢慢逛。限定商品賣完不補，想入手的要果斷。出發前務必確認官網公告，部分期間可能有特展或快閃活動。</div>
+        <a class="map-btn purple-btn" href="https://maps.google.com/?q=ちいかわらんど+原宿" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">步行 5 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">6</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 2 · 13:30</div>
+        <div class="stop-title">竹下通り・表参道 逛街</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇逛街路線 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'d2shop','takeshita')">竹下通り <span class="distance-badge">可愛系</span></button>
+      <button class="sel-tab"        onclick="selectPanel(this,'d2shop','omotesando')">表参道ヒルズ <span class="distance-badge">精品系</span></button>
+    </div>
+
+    <div class="panel active card" id="d2shop-takeshita">
+      <div class="card-body">
+        <div class="card-name">竹下通り（たけした通り）</div>
+        <span class="card-tag">原宿流行・可愛文化</span>
+        <div class="info-row"><span class="info-icon">🕐</span>各店不一，多 10:00–20:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区神宮前1丁目（原宿駅前）</div>
+        <div class="note">全長約 350 公尺的步行街，充滿原宿風格小店、可愛手作飾品、Crepe 攤位。吉伊卡哇相關周邊也常在此區域找到。人多時非常擁擠，建議平日前往。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=竹下通り+原宿" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="d2shop-omotesando">
+      <div class="card-body">
+        <div class="card-name">表参道ヒルズ</div>
+        <span class="card-tag">精品・設計師品牌</span>
+        <div class="rating"><span class="star">★</span> 4.3 <span style="color:var(--muted);font-weight:300">（設計師建築螺旋廊）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–21:00（週日至 20:00）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都港区南青山5-3-1</div>
+        <div class="note">由建築師安藤忠雄設計的螺旋型商場，集結精品、設計師品牌與咖啡館。旁邊的表参道本街亦有 ZARA、H&M 及各式時尚品牌。適合午後慢慢散步。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=表参道ヒルズ" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">地下鉄 約 10 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">7</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 2 · 18:00</div>
+        <div class="stop-title">渋谷・晚餐 + 夜景</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇渋谷晚餐方案 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'d2dinner','scramble')">渋谷スクランブルスクエア</button>
+      <button class="sel-tab"        onclick="selectPanel(this,'d2dinner','hikarie')">渋谷ヒカリエ</button>
+    </div>
+
+    <div class="panel active card" id="d2dinner-scramble">
+      <div class="card-body">
+        <div class="card-name">渋谷スクランブルスクエア 6–14F レストラン街</div>
+        <span class="card-tag">高層餐廳・多元選擇</span>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–23:00（各店略有差異）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区渋谷2-24-12（渋谷駅直結）</div>
+        <div class="note">14–45F 為 SHIBUYA SKY 展望台（¥2,200 / 人），可俯瞰整個東京夜景。建議晚餐後上展望台，看夜景效果更佳。餐廳選擇豐富，拉麵、壽司、焼肉、義式料理皆有。人均 ¥2,000–4,500。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=渋谷スクランブルスクエア" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="d2dinner-hikarie">
+      <div class="card-body">
+        <div class="card-name">渋谷ヒカリエ ShinQs ダイニング</div>
+        <span class="card-tag">精緻餐廳・設計風</span>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–23:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区渋谷2-21-1（渋谷駅東口直結）</div>
+        <div class="note">以設計感著稱的商業設施，7–8F 有多家精緻餐廳，包含和食、義式、東南亞料理等。對面即是渋谷スクランブル交差点，飯後可步行至路口拍攝著名的「澀谷十字路口」。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=渋谷ヒカリエ" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ══════════════════════════════════════════════
+  DAY 3 — 浅草下町 + 秋葉原
+══════════════════════════════════════════════ -->
+<div class="day-marker">
+  <div class="day-line"></div>
+  <div class="day-badge">DAY 3 · 浅草 &amp; 秋葉原</div>
+  <div class="day-line"></div>
+</div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number green">8</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 3 · 09:00</div>
+        <div class="stop-title">浅草寺</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">浅草寺（せんそうじ）</div>
+        <span class="card-tag green-tag">寺廟・下町文化</span>
+        <div class="rating"><span class="star">★</span> 4.7 <span style="color:var(--muted);font-weight:300">（東京最古老寺廟）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>外苑 24 小時 / 本堂 06:00–17:00（10月–3月 06:30 開放）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都台東区浅草2-3-1</div>
+        <div class="info-row"><span class="info-icon">🚆</span>東武線 / 東京メトロ 浅草駅 步行 5 分鐘</div>
+        <div class="note">早上前往人少且光線最美，適合拍攝「雷門」大燈籠。可在本堂抽籤（おみくじ），體驗道地日本文化。整體遊逛含仲見世通り 約 1–1.5 小時。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?q=浅草寺" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">步行 1 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number green">9</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 3 · 10:00</div>
+        <div class="stop-title">仲見世通り・浅草購物</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">仲見世通り</div>
+        <span class="card-tag green-tag">傳統商店街・伴手禮</span>
+        <div class="info-row"><span class="info-icon">🕐</span>各店約 10:00–19:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都台東区浅草1-36-3（浅草寺雷門至宝蔵門之間）</div>
+        <div class="note">日本最古老商店街之一，全長約 250 公尺。販售人形燒、雷おこし（傳統米菓）、扇子、浴衣小物、和菓子等。挑伴手禮的好地方！人形燒推薦現買現吃。</div>
+        <a class="map-btn green-btn" href="https://maps.google.com/?q=仲見世通り+浅草" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">地下鉄 銀座線 約 25 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">10</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 3 · 13:30</div>
+        <div class="stop-title">秋葉原 アニメ・周邊大採買</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇主力店家 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'akiba','animate')">Animate 秋葉原 <span class="distance-badge">動漫周邊</span></button>
+      <button class="sel-tab"        onclick="selectPanel(this,'akiba','koto')">コトブキヤ + ヨドバシ <span class="distance-badge">模型・電玩</span></button>
+    </div>
+
+    <div class="panel active card" id="akiba-animate">
+      <div class="card-body">
+        <div class="card-name">アニメイト 秋葉原店</div>
+        <span class="card-tag">動漫周邊旗艦店</span>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–21:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都千代田区外神田1-15-5（秋葉原駅 步行 4 分鐘）</div>
+        <div class="note">日本最大動漫周邊連鎖，吉伊卡哇商品種類豐富，包含文具、小物、扭蛋、CD 等。附近同棟或周邊亦有 Toranoana、Gamers 等類似商店，可一起逛。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=アニメイト秋葉原" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="akiba-koto">
+      <div class="card-body">
+        <div class="card-name">コトブキヤ 秋葉原館 + ヨドバシAkiba</div>
+        <span class="card-tag">模型・電玩・家電</span>
+        <div class="info-row"><span class="info-icon">🕐</span>コトブキヤ 11:00–20:00 ／ ヨドバシ 09:30–22:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>コトブキヤ：千代田区外神田1-8-8 ／ ヨドバシ：千代田区神田花岡町1-1</div>
+        <div class="note">コトブキヤ以高品質 figure 和 plamo 著名；ヨドバシ Akiba 是秋葉原最大家電商場，9F 玩具層有各式角色商品。兩店相距步行約 5 分鐘，可連逛。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=コトブキヤ秋葉原" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">電車 押上行き 約 15 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number purple">11</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 3 · 17:30</div>
+        <div class="stop-title">東京スカイツリー</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">東京スカイツリー</div>
+        <span class="card-tag purple-tag">展望台・夜景</span>
+        <div class="rating"><span class="star">★</span> 4.5 <span style="color:var(--muted);font-weight:300">（世界第二高塔）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>10:00–21:00（最後入場 20:00）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都墨田区押上1-1-2</div>
+        <div class="info-row"><span class="info-icon">💴</span>天望デッキ（350m）¥2,100 / 天望回廊（450m）¥1,000 追加</div>
+        <div class="note">傍晚 17:30 入場可看到日落及夜景兩種風貌。塔下 Solamachi 購物中心有吉伊卡哇相關商品（可確認是否有期間限定店）。建議事先於官網購票以節省等待時間。</div>
+        <a class="map-btn purple-btn" href="https://maps.google.com/?q=東京スカイツリー" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ══════════════════════════════════════════════
+  DAY 4 — 池袋 + 新宿大採買
+══════════════════════════════════════════════ -->
+<div class="day-marker">
+  <div class="day-line"></div>
+  <div class="day-badge">DAY 4 · 池袋 &amp; 新宿大採買</div>
+  <div class="day-line"></div>
+</div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">12</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 4 · 10:00</div>
+        <div class="stop-title">池袋 Animate 本店 + サンシャインシティ</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">アニメイト池袋本店</div>
+        <span class="card-tag">全日本最大動漫店</span>
+        <div class="rating"><span class="star">★</span> 4.6 <span style="color:var(--muted);font-weight:300">（動漫迷朝聖地）</span></div>
+        <div class="info-row"><span class="info-icon">🕐</span>11:00–21:00</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都豊島区東池袋1-20-7（池袋駅 東口 步行 5 分鐘）</div>
+        <div class="note">全日本最大的 Animate，共 9 層樓，各類動漫周邊、CD、書籍皆有。吉伊卡哇的商品在此也很齊全。附近還有サンシャインシティ（サンシャイン60・水族館・展望台），可安排上午逛 Animate，午餐後走サンシャインシティ。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=アニメイト池袋本店" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">JR 山手線 約 20 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number purple">13</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 4 · 14:30</div>
+        <div class="stop-title">新宿 ちいかわ関連ショップ</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇採買據點 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab purple active" onclick="selectPanel(this,'d4shop','takashimaya')">高島屋タイムズスクエア <span class="distance-badge">新宿南口</span></button>
+      <button class="sel-tab purple"        onclick="selectPanel(this,'d4shop','odakyu')">小田急百貨 <span class="distance-badge">新宿西口</span></button>
+    </div>
+
+    <div class="panel active card" id="d4shop-takashimaya">
+      <div class="card-body">
+        <div class="card-name">新宿高島屋タイムズスクエア</div>
+        <span class="card-tag purple-tag">百貨・角色商品</span>
+        <div class="info-row"><span class="info-icon">🕐</span>10:30–20:00（餐廳 11:00–23:00）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区千駄ヶ谷5-24-2（新宿駅 南口 步行 3 分鐘）</div>
+        <div class="note">高島屋內常設有 IP 角色商品快閃區，吉伊卡哇等熱門角色商品在此容易找到。B1–B2 食品區也可採購甜點伴手禮。</div>
+        <a class="map-btn purple-btn" href="https://maps.google.com/?q=新宿高島屋タイムズスクエア" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="d4shop-odakyu">
+      <div class="card-body">
+        <div class="card-name">小田急百貨店 新宿本館</div>
+        <span class="card-tag purple-tag">百貨・生活雜貨</span>
+        <div class="info-row"><span class="info-icon">🕐</span>10:00–20:30</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都新宿区西新宿1-1-3（新宿駅 西口 直結）</div>
+        <div class="note">緊鄰新宿西口，交通極方便。各樓層設有角色商品不定期快閃店，B1 食品伴手禮選擇多樣。逛完可接著在西口附近找晚餐。</div>
+        <a class="map-btn purple-btn" href="https://maps.google.com/?q=小田急百貨店新宿本館" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">步行 10–15 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">14</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 4 · 19:00</div>
+        <div class="stop-title">告別晚餐</div>
+      </div>
+    </div>
+
+    <p class="selector-label">選擇告別晚餐地點 ↓</p>
+    <div class="tab-group">
+      <button class="sel-tab active" onclick="selectPanel(this,'d4dinner','niku')">新宿 焼肉 <span class="distance-badge">大口犒賞</span></button>
+      <button class="sel-tab"        onclick="selectPanel(this,'d4dinner','kaiseki')">新宿 割烹・居酒屋 <span class="distance-badge">精緻款待</span></button>
+    </div>
+
+    <div class="panel active card" id="d4dinner-niku">
+      <div class="card-body">
+        <div class="card-name">新宿 焼肉街（新宿三丁目周辺）</div>
+        <span class="card-tag">焼肉・慶功犒賞</span>
+        <div class="info-row"><span class="info-icon">📍</span>東京都新宿区新宿3丁目周辺（Metro 新宿三丁目駅 周辺）</div>
+        <div class="note">新宿三丁目一帶有眾多平價至中高價的焼肉店，如「牛角」「叙々苑」「安楽亭」等。最後一晚大口吃肉，完美收尾旅程。建議提前一天電話或網路預約，人均 ¥3,500–6,000。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=新宿三丁目+焼肉" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+
+    <div class="panel card" id="d4dinner-kaiseki">
+      <div class="card-body">
+        <div class="card-name">新宿 居酒屋・割烹</div>
+        <span class="card-tag">和食・精緻小酌</span>
+        <div class="info-row"><span class="info-icon">📍</span>東京都新宿区西新宿 / 新宿三丁目周辺</div>
+        <div class="note">新宿各區有大量居酒屋，推薦找有「お通し付き」的傳統日式居酒屋，品嘗季節性肴料理。或選擇割烹（和食割烹）享受精緻的日本料理，適合旅途最後一晚慢慢品味。人均 ¥3,000–5,000。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=新宿+居酒屋" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ══════════════════════════════════════════════
+  DAY 5 — 最後採買 · 出發
+══════════════════════════════════════════════ -->
+<div class="day-marker">
+  <div class="day-line"></div>
+  <div class="day-badge">DAY 5 · 出發回家</div>
+  <div class="day-line"></div>
+</div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number accent">15</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 5 · 09:30</div>
+        <div class="stop-title">最後採買 · 新宿高島屋 B1</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-name">新宿高島屋 B1–B2 食品伴手禮</div>
+        <span class="card-tag">伴手禮・最後掃貨</span>
+        <div class="info-row"><span class="info-icon">🕐</span>開店 10:30（部分門市 10:00 提前開）</div>
+        <div class="info-row"><span class="info-icon">📍</span>東京都渋谷区千駄ヶ谷5-24-2</div>
+        <div class="info-row"><span class="info-icon">💡</span>建議出發前先確認航班時間，保留 3 小時前抵達機場</div>
+        <div class="note">B1 食品層有東京限定銘菓、吉伊卡哇聯名糖果小物（若有）。此時也可在附近的 Lumine、BIC Camera 做最後補買。行李若超重可在飯店或機場託運服務（宅急便）寄回台灣。</div>
+        <a class="map-btn accent-btn" href="https://maps.google.com/?q=新宿高島屋タイムズスクエア" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Google Maps 導航
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="segment">
+    <div class="segment-line"></div>
+    <div class="segment-label">利木津バス / N'EX 約 60–90 分鐘</div>
+    <div class="segment-line"></div>
+  </div>
+
+
+  <div class="stop">
+    <div class="stop-header">
+      <div class="stop-number">16</div>
+      <div class="stop-meta">
+        <div class="stop-time">Day 5 · 午後</div>
+        <div class="stop-title">成田 / 羽田 出發</div>
+      </div>
+    </div>
+
+    <div class="depart-card">
+      <div class="card-name">搭機返台</div>
+      <div class="info-row"><span class="info-icon">✈️</span>國際線出發　建議航班出發前 3 小時抵達機場</div>
+      <div class="info-row"><span class="info-icon">💡</span>成田機場免稅店有東京特產及部分 IP 商品，可在候機時最後補貨</div>
+      <div class="note">別忘了辦理退稅（消費稅還付）！持護照在各大商場的免稅服務台辦理，單一店鋪消費滿 ¥5,001 以上可申請。行李若有吉伊卡哇娃娃等大型商品，建議裝入手提行李或購買超大行李袋。旅程完結，帶著滿滿吉伊卡哇戰利品回家！</div>
+    </div>
+  </div>
+
+
+</div><!-- /.timeline -->
+
+<footer>吉伊卡哇日本5天4夜 · 東京為主 · 原宿・浅草・秋葉原・池袋・新宿</footer>
+
+<script>
+  function selectPanel(btn, group, id) {
+    document.querySelectorAll(`[onclick*="'${group}'"]`).forEach(t => t.classList.remove('active'));
+    document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`${group}-${id}`).classList.add('active');
+  }
+</script>
+</body>
+</html>
